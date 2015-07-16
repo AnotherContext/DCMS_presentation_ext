@@ -1,0 +1,63 @@
+---
+output: 
+  html_document:
+    theme: spacelab
+    highlight: espresso
+---
+
+## Department for Culture Media and Sport: Trends Over Time
+
+#### author: Agnieszka Plywaczyk
+
+****
+
+This document was created based on web-ready analytics illustrating spending trends of the Department for Culture, Media and Sport.
+
+All figures and tables were generated using R statistical programming language with packages such as shiny, rmarkdown, ggplot2, and reshape2. For more details, visit <https://wildsquare.shinyapps.io/DCMS_presentation_ext/>.
+
+#### Employment for a chosen industry
+
+Plot1.1 Employment trends for "`r input$desc`" industry
+
+```{r plot1.1, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+emp <- emp[ emp$variable == "No of Enterprises", ]
+emp$value <- emp$value/1e3
+
+p2 <- ggplot(data = emp, aes(x = Year, y = value)) + 
+          geom_bar(stat = "identity", aes_string(fill= "Sizeband")) +
+          fte_theme()  +
+          facet_grid( Sizeband  ~ Desc) +
+          scale_fill_brewer(palette = "Set2", breaks = c("1 to 9", "10 to 49", "50 to 249", "250 and over")) +
+          #scale_y_discrete(labels = comma)+
+          ylab("No. of Enterprises (Thousand)") +
+          ggtitle("The Annual Business Survey for Arts, Entertainment and Recreation, Information and Communication\ncovering the Non-Financial Business Economy which accounts for approx. 75% of the UK economy in terms of GVA*") +
+          theme(legend.position="top") +
+          guides(fill=guide_legend(title= c("No. of Employees"))) + 
+          theme(legend.text = element_text(size=7, color=brewer.pal("Greys", n=9)[7])) 
+
+desc <- input$desc #"Arts, entertainment and recreation " 
+emp <- emp[ emp$Desc == desc,]
+    
+p1 <- ggplot(data = emp, aes(x = Year, y = value)) + 
+          geom_bar(stat = "identity", aes_string(fill= "Sizeband")) +
+          fte_theme()  +
+          facet_grid( variable  ~ Sizeband) +
+          scale_fill_brewer(palette = "Set2", breaks = c("1 to 9", "10 to 49", "50 to 249", "250 and over")) +
+          scale_y_continuous(labels = comma) +
+          ylab("Value (£ Billion)") +
+          ggtitle("The Annual Business Survey for Arts, Entertainment and Recreation, Information and Communication\ncovering the Non-Financial Business Economy which accounts for approx. 75% of the UK economy in terms of GVA*") +
+          theme(legend.position="top") +
+          guides(fill=guide_legend(title= c("No. of Employess"))) +
+          theme(legend.text = element_text(size=7, color=brewer.pal("Greys", n=9)[7])) 
+p1
+```
+
+Plot1.2 Number of enterprises across Arts Entertainment and Recreation, and Internet and Telecommunication industries
+
+```{r plot1.2, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+p2
+```
+
+Have a question? Email me at [a.plywaczyk@hotmail.co.uk](emailto:a.plywaczyk@hotmail.co.uk).
+
+<sup>[Email](emailto: anothercontext@hotmail.com) - [Twitter](https://twitter.com/ianothercontext) - [Facebook](https://www.facebook.com/anothercontext) - [GitHub](https://github.com/AnotherContext) - [OneDrive](http://1drv.ms/1fAsxIY)</sup>

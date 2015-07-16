@@ -1,0 +1,156 @@
+---
+output: 
+  html_document:
+    theme: spacelab
+    highlight: espresso
+---
+
+## Department for Culture Media and Sport: Trends Over Time
+
+#### author: Agnieszka Plywaczyk
+
+****
+
+This document was created based on web-ready analytics illustrating spending trends of the Department for Culture, Media and Sport.
+
+All figures and tables were generated using R statistical programming language with packages such as shiny, rmarkdown, ggplot2, and reshape2. For more details, visit <https://wildsquare.shinyapps.io/DCMS_presentation_ext/>.
+
+<br>
+
+#### Spending for chosen expenses and activities 
+
+Plot1.1 Spending trends of the "`r input$activity_type`" for "`r input$expense_type`"
+
+```{r plot1.1, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+exp <- input$expense_type #"Departmental expenditure" #
+act <- input$activity_type #"Arts, Heritage, Libraries" #
+total <- total[total$Expense.Type == exp & total$Broad.Activity == act, ]
+
+p2 <- ggplot(data = total, aes(x = Year, y = Spending.Value)) +
+        geom_boxplot(outlier.colour = "grey60", colour= "grey60", fill= "#BD0026") + 
+        fte_theme()  +
+        stat_summary(fun.y=mean, geom="point", colour = "white") +
+        scale_y_continuous(labels = comma) + 
+        ylab("Spending Values (£)") + 
+        ggtitle("Spending For Chosen Expenses and Activities")
+
+total <- aggregate(total$Spending.Value, by = list(total$Resource.Type, total$Expense.Type, total$Broad.Activity, total$Year), FUN = sum)
+colnames(total) <- c("Resource", "Expense", "Activity", "Year", "Value")
+tbl <- total[ order(-total[,5]), ]
+    
+p1 <- ggplot(data = tbl, aes(x = Year, y = Value)) + 
+        geom_bar(stat = "identity", fill= "#BD0026") +
+        fte_theme()  +
+        scale_fill_brewer(palette="YlOrRd") + 
+        scale_y_continuous(labels = comma) + 
+        ylab("Spending Values (£)") +
+        ggtitle("Spending For Chosen Expenses and Activities")
+p1
+
+```
+
+Plot1.2 Spending data spread of the "`r input$activity_type`" for "`r input$expense_type`"
+
+```{r plot1.2, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+p2
+```
+
+<br>
+
+#### Summary
+
+Plot1.3 Spending across all activities
+
+```{r plot1.3, fig.height=4, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+
+total <- melt(spend, id=c("Resource.Type", "Expense.Type", "Department", "Broad.Activity"), 
+              variable.name = "Year", value.name = "Spending.Value")
+total$Spending.Value <- ifelse(is.na(total$Spending.Value), 0, total$Spending.Value)
+total <- total[, 5:6]
+
+total2 <- aggregate(total$Spending.Value, by = list(total$Year), FUN = sum)
+total3 <- aggregate(total$Spending.Value, by = list(total$Year), FUN = mean)
+total4 <- cbind(total2, total3$x)
+colnames(total4) <- c("Year", "Sum", "Mean")
+        
+p3 <- ggplot(data = total4, aes(x = Year, y = Sum)) + 
+        geom_bar(stat = "identity", fill= "#D53E4F") +
+        geom_point(stat = "identity", aes(y = Mean), colour = "white") + 
+        fte_theme()  +
+        scale_fill_brewer(palette="YlOrRd") +
+        scale_y_continuous(labels = comma) + 
+        ylab("Spending Values (£)") +
+        ggtitle("Spending Across All Activities")
+p3
+  
+```
+
+Plot1.4 Spending differences in consecutive years
+
+```{r plot1.4, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+
+total <- melt(spend, id=c("Resource.Type", "Expense.Type", "Department", "Broad.Activity"), 
+              variable.name = "Year", value.name = "Spending.Value")
+total$Spending.Value <- ifelse(is.na(total$Spending.Value), 0, total$Spending.Value)
+total <- total[, 5:6]
+
+total2 <- aggregate(total$Spending.Value, by = list(total$Year), FUN = sum)
+t_diff <- data.frame(diff(as.matrix(total2$x)))
+total3 <- cbind(total2$Group.1[-1], t_diff)
+colnames(total3) <- c("Year", "Diff")
+        
+p4 <- ggplot(data = total3, aes(x = Year, y = Diff)) + 
+          geom_bar(stat = "identity",  fill= "#D53E4F") +
+          fte_theme()  +
+          scale_fill_brewer(palette="YlOrRd") +
+          scale_y_continuous(labels = comma) + 
+          ylab("Spending Values (£)") +
+          ggtitle("Spending Differences in Consecutive Years")
+p4
+
+```
+
+Plot1.5 Spending across all activities
+
+```{r plot1.5, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+
+total <- melt(spend, id=c("Resource.Type", "Expense.Type", "Department", "Broad.Activity"), 
+              variable.name = "Year", value.name = "Spending.Value")
+total$Spending.Value <- ifelse(is.na(total$Spending.Value), 0, total$Spending.Value)
+total <- total[, 5:6]
+
+p5 <- ggplot(data = total, aes(x = Year, y = Spending.Value)) +
+          geom_boxplot(outlier.colour = "grey60", colour= "grey70", fill= "#D53E4F") + 
+          fte_theme()  +
+          stat_summary(fun.y=mean, geom="point", colour = "white") +
+          scale_y_continuous(labels = comma) + 
+          ylab("Spending Values (£)") +
+          ggtitle("Spending Across All Activities")   
+p5
+```
+
+
+Plot1.6 Scaled Limits of Spending Values zoomed Out 5% of Data Points (Outliers)
+
+```{r plot1.6, fig.height=3, fig.width = 8, echo = FALSE, warning=FALSE, message=FALSE}
+
+p6 <- ggplot(data = total, aes(x = Year, y = Spending.Value)) +
+          geom_boxplot(outlier.colour = "grey60", colour= "grey70",  fill= "#D53E4F") + 
+          fte_theme()  +
+          stat_summary(fun.y=mean, geom="point", colour = "white") +
+          scale_y_continuous(labels = comma) + 
+          ylab("Spending Values (£)") +
+          ggtitle("Scaled Limits of Spending Values\nZoomed Out 5% of Data Points (Outliers)")
+        
+ylim1 <- boxplot.stats(total$Spending.Value)$stats[c(1, 5)]
+          # scale y limits based on ylim1
+p6 + coord_cartesian(ylim = ylim1 + c(-0.05, 0.05) * diff(ylim1)/2)
+
+```
+
+
+****
+
+Have a question? Email me at [a.plywaczyk@hotmail.co.uk](emailto:a.plywaczyk@hotmail.co.uk).
+
+<sup>[Email](emailto: anothercontext@hotmail.com) - [Twitter](https://twitter.com/ianothercontext) - [Facebook](https://www.facebook.com/anothercontext) - [GitHub](https://github.com/AnotherContext) - [OneDrive](http://1drv.ms/1fAsxIY)</sup>
