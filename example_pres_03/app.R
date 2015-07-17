@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyapps)
+library(shinythemes)
 library(rmarkdown)
 library(ggplot2)
 library(reshape2)
@@ -14,7 +15,7 @@ source("doc/source_files_pres_03.R")
 ############################################################
 
 ui <- shinyUI(
-  navbarPage(title = "Employment", 
+  navbarPage(title = "", theme = shinytheme("readable"),
              collapsible = TRUE, fluid = TRUE, 
              tabPanel("Value to the Economy",  
                       fluidRow(
@@ -31,12 +32,12 @@ ui <- shinyUI(
                       )),
                       fluidRow(
                           column(12,
-                                plotOutput("chart1", height = "350px"))
+                                plotOutput("chart1", height = "360px"))
              )),
              tabPanel("No. of Employees",
                       fluidRow(
                           column(12,
-                                 plotOutput("chart2", height = "400px"))
+                                 plotOutput("chart2", height = "450px"))
              )),
              tabPanel("Data", 
                       downloadButton("downloadData", "Download"),

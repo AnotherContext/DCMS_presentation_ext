@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyapps)
+library(shinythemes)
 library(rmarkdown)
 library(ggplot2)
 library(reshape2)
@@ -13,7 +14,7 @@ source("doc/source_files_pres_01.R")
 ############################################################
 
 ui <- shinyUI(
-        navbarPage(title = "Spending", 
+        navbarPage(title = "", theme = shinytheme("readable"),
                    collapsible = TRUE, fluid = TRUE, 
                        tabPanel("Overview",
                              fluidRow(
@@ -37,10 +38,10 @@ ui <- shinyUI(
                              ),
                             fluidRow(
                                   column(6,
-                                    plotOutput("chart1", height = "320px")
+                                    plotOutput("chart1", height = "360px")
                                   ),
                                   column(6,
-                                    plotOutput("chart2", height = "320px")
+                                    plotOutput("chart2", height = "360px")
                                   )
                             )
                        ),
@@ -48,21 +49,19 @@ ui <- shinyUI(
                                 #verbatimTextOutput("summary")
                                 fluidRow(
                                   column(6,
-                                         plotOutput("chart3", height= "200px")),
+                                         plotOutput("chart3", height= "225px")),
                                   column(6,
-                                         plotOutput("chart4", height= "200px")
+                                         plotOutput("chart4", height= "225px")
                                          )),
                                   fluidRow(
                                   column(6,
-                                         plotOutput("chart6", height= "200px")),
+                                         plotOutput("chart6", height= "225px")),
                                   column(6,
-                                         plotOutput("chart5", height= "200px")
+                                         plotOutput("chart5", height= "225px")
                                          )) 
                        ),
                        tabPanel("Data", 
-                                HTML("<h5>The spending data were published as an annual DCMS .pdf report available here. Alternatively, you can download the formatted dataset in the form of .csv file below.</h5>"),
                                 downloadButton("downloadData", "Download"),
-                                HTML("<p> <br></p>"),
                                 dataTableOutput("table")
                       )
                    )

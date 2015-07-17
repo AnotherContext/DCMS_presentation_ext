@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyapps)
+library(shinythemes)
 library(rmarkdown)
 library(ggplot2)
 library(reshape2)
@@ -13,7 +14,7 @@ source("doc/source_files_pres_02.R")
 ############################################################
 
 ui <- shinyUI(
-        navbarPage(title = "Performance", 
+        navbarPage(title = "", theme = shinytheme("readable"),
                    collapsible = TRUE, fluid = TRUE, 
                        tabPanel("Overview",  
                                 fluidRow(
@@ -87,9 +88,9 @@ ui <- shinyUI(
                                   
                                       fluidRow(
                                           column(6,
-                                                 plotOutput("chart16", height = "300px")),
+                                                 plotOutput("chart16", height = "360px")),
                                           column(6,
-                                                 plotOutput("chart17", height = "300px"))
+                                                 plotOutput("chart17", height = "360px"))
                                       ),
                                       fluidRow(
                                           column(6
@@ -104,14 +105,14 @@ ui <- shinyUI(
                                  
                                      fluidRow(
                                       column(6,
-                                             plotOutput("chart14", height = "300px")),
+                                             plotOutput("chart14", height = "360px")),
                                       column(6,
-                                             plotOutput("chart15", height = "300px")
+                                             plotOutput("chart15", height = "360px")
                                       ))
                                )
                         ),
                        tabPanel("Annual Business Survey",
-                               plotOutput("chart18", height = "400px")
+                               plotOutput("chart18", height = "450px")
                        )
                    )
   )
