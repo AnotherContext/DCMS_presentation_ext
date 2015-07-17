@@ -1,5 +1,5 @@
 # DCMS presentation
-An overview of the Department for Culture, Media and Sport's activities, performance and trends over time.
+An overview of the Department for Culture, Media and Sport's activities, spending trends and eprformance.
 
 What is it about?
 -------

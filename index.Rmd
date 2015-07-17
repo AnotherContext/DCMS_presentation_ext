@@ -202,7 +202,7 @@ The work in this document is influenced by many sources, with especial aknowledg
     + JJ Allaire, Jeffrey Horner, Vicent Marti, Natacha Porte, and Yihui Xie for [Rmarkdown](http://cran.r-project.org/web/packages/markdown/index.html), all contributors for shinyapps, 
   RStudio and Winston Chang for shiny, 
     + [MiniMaxir](http://minimaxir.com/2015/02/ggplot-tutorial/) for beautiful ggplot theme fte_theme().
-- klr from [Timely Portfolio](http://timelyportfolio.blogspot.co.uk), [Mike Bostock](http://bost.ocks.org/mike/), [Tony Hirst](http://blog.ouseful.info/), [Oli Hawkings](http://olihawkins.com/), and [Andy Smith](http://www.ons.gov.uk/ons/interactive/index.html) for continous inspiration and guidance.
+- [Homer White](http://statistics.rainandrhino.org/), klr from [Timely Portfolio](http://timelyportfolio.blogspot.co.uk), [Mike Bostock](http://bost.ocks.org/mike/), [Tony Hirst](http://blog.ouseful.info/), [Oli Hawkings](http://olihawkins.com/), and [Andy Smith](http://www.ons.gov.uk/ons/interactive/index.html),  for continous inspiration and guidance.
 
 ***
 
