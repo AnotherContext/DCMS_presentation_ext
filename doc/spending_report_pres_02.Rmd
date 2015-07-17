@@ -7,7 +7,7 @@ output:
 
 ## Department for Culture Media and Sport: Trends Over Time
 
-#### author: Agnieszka Plywaczyk
+#### author: [AnotherContext](http://anothercontext.co.uk)
 
 ****
 
@@ -151,6 +151,6 @@ p6 + coord_cartesian(ylim = ylim1 + c(-0.05, 0.05) * diff(ylim1)/2)
 
 ****
 
-Have a question? Email me at [a.plywaczyk@hotmail.co.uk](emailto:a.plywaczyk@hotmail.co.uk).
+Have a question? Email me at anothercontext [at] hotmail [dot] com
 
-<sup>[Email](emailto: anothercontext@hotmail.com) - [Twitter](https://twitter.com/ianothercontext) - [Facebook](https://www.facebook.com/anothercontext) - [GitHub](https://github.com/AnotherContext) - [OneDrive](http://1drv.ms/1fAsxIY)</sup>
+<sup>[Twitter](https://twitter.com/ianothercontext) - [Facebook](https://www.facebook.com/anothercontext) - [GitHub](https://github.com/AnotherContext) - [OneDrive](http://1drv.ms/1fAsxIY)</sup>
